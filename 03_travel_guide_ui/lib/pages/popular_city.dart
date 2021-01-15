@@ -40,7 +40,7 @@ class _PopularCityPageState extends State<PopularCityPage> {
 
   Widget popularCityGridView(List<City> listCity) {
     return Padding(
-      padding: const EdgeInsets.only(right: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: GridView.builder(
         gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -59,7 +59,7 @@ class _PopularCityPageState extends State<PopularCityPage> {
 
   Widget popularCityTitle() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 28.0),
+      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 28.0),
       child: Text(
         'Result ${listCity.length} cities found',
         style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
@@ -72,7 +72,7 @@ class _PopularCityPageState extends State<PopularCityPage> {
     return Scaffold(
       body: SafeArea(
         top: true,
-        minimum: EdgeInsets.only(left: 16, top: 42.0),
+        minimum: EdgeInsets.only(top: 42.0),
         child: Flex(
           direction: Axis.vertical,
           crossAxisAlignment: CrossAxisAlignment.start,

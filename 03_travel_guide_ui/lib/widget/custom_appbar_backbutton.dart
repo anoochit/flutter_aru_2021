@@ -7,7 +7,7 @@ class CustomAppBarWithBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
+      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.baseline,
         children: [
@@ -19,9 +19,6 @@ class CustomAppBarWithBackButton extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () => Navigator.pop(context)),
-          SizedBox(
-            width: 16,
-          )
         ],
       ),
     );

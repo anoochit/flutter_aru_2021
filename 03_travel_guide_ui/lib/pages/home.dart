@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Widget popularCityItem(BuildContext context, List<City> item, int index) {
     return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
+      padding: EdgeInsets.only(left: (index == 0) ? 16 : 0, right: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -48,6 +48,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget popularCityTitle() {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.baseline,
         children: [
@@ -72,9 +73,6 @@ class _HomePageState extends State<HomePage> {
               return PopularCityPage();
             })),
           ),
-          SizedBox(
-            width: 16,
-          )
         ],
       ),
     );
@@ -107,6 +105,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget trendingPlaceTitle() {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.baseline,
         children: [
@@ -134,9 +133,6 @@ class _HomePageState extends State<HomePage> {
                   ));
             },
           ),
-          SizedBox(
-            width: 16,
-          )
         ],
       ),
     );
@@ -147,7 +143,7 @@ class _HomePageState extends State<HomePage> {
     return Container(
       width: 160,
       height: 77,
-      padding: EdgeInsets.only(right: 8.0),
+      padding: EdgeInsets.only(left: (index == 0) ? 16 : 0, right: 8.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(6.0),
         child: Image.asset(
@@ -186,6 +182,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget travelWithFriendTitle() {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.baseline,
         children: [
@@ -204,9 +201,6 @@ class _HomePageState extends State<HomePage> {
               fontSize: 16.0,
             ),
           ),
-          SizedBox(
-            width: 16,
-          )
         ],
       ),
     );
@@ -246,7 +240,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: SafeArea(
         top: true,
-        minimum: EdgeInsets.only(left: 16, top: 42),
+        minimum: EdgeInsets.only(top: 42),
         child: Flex(
           direction: Axis.vertical,
           children: [

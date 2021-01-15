@@ -13,7 +13,9 @@ class TrendingPlacePage extends StatefulWidget {
 class _TrendingPlacePageState extends State<TrendingPlacePage> {
   Widget trendingPlaceItem() {
     return Container(
-      child: Column(
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      child: Flex(
+        direction: Axis.vertical,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
@@ -33,14 +35,11 @@ class _TrendingPlacePageState extends State<TrendingPlacePage> {
           ),
           Stack(
             children: [
-              Container(
-                height: 245,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(6.0),
-                  child: Image.asset(
-                    listPlace[0].image,
-                    fit: BoxFit.cover,
-                  ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16.0),
+                child: Image.asset(
+                  listPlace[0].image,
+                  fit: BoxFit.cover,
                 ),
               ),
               Positioned(
@@ -75,7 +74,7 @@ class _TrendingPlacePageState extends State<TrendingPlacePage> {
     return Scaffold(
       body: SafeArea(
         top: true,
-        minimum: EdgeInsets.only(left: 16, top: 42),
+        minimum: EdgeInsets.only(top: 42),
         child: Flex(
           direction: Axis.vertical,
           children: [
