@@ -17,7 +17,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Widget popularCityItem(BuildContext context, List<City> item, int index) {
     return Padding(
-      padding: EdgeInsets.only(left: (index == 0) ? 16 : 0, right: 8.0),
+      padding: EdgeInsets.only(
+        left: (index == 0) ? 16 : 0,
+        right: 8.0,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -35,7 +38,10 @@ class _HomePageState extends State<HomePage> {
           SizedBox(height: 8),
           Text(
             item[index].name,
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Text(
             item[index].country,
@@ -143,7 +149,10 @@ class _HomePageState extends State<HomePage> {
     return Container(
       width: 160,
       height: 77,
-      padding: EdgeInsets.only(left: (index == 0) ? 16 : 0, right: 8.0),
+      padding: EdgeInsets.only(
+        left: (index == 0) ? 16 : 0,
+        right: 8.0,
+      ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(6.0),
         child: Image.asset(

@@ -7,13 +7,20 @@ class CustomAppBarWithBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16.0),
+      padding: const EdgeInsets.only(
+        left: 16,
+        right: 16,
+        bottom: 16.0,
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.baseline,
         children: [
           Text(
             title,
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Spacer(),
           IconButton(

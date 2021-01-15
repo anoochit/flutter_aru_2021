@@ -28,7 +28,10 @@ class _PopularCityPageState extends State<PopularCityPage> {
         SizedBox(height: 8),
         Text(
           item[index].name,
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         Text(
           item[index].country,
@@ -39,13 +42,17 @@ class _PopularCityPageState extends State<PopularCityPage> {
   }
 
   Widget popularCityGridView(List<City> listCity) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double statusBarHeight = 24.0;
+    double actionItemHeight = 110.0;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: GridView.builder(
         gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: (MediaQuery.of(context).size.width / 2) /
-              ((MediaQuery.of(context).size.height - 24 - (110)) / 2),
+          childAspectRatio: (screenWidth / 2) /
+              ((screenHeight - statusBarHeight - (actionItemHeight)) / 2),
           mainAxisSpacing: 8.0,
           crossAxisSpacing: 8.0,
         ),
@@ -59,7 +66,11 @@ class _PopularCityPageState extends State<PopularCityPage> {
 
   Widget popularCityTitle() {
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 28.0),
+      padding: const EdgeInsets.only(
+        left: 16.0,
+        right: 16.0,
+        bottom: 28.0,
+      ),
       child: Text(
         'Result ${listCity.length} cities found',
         style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),

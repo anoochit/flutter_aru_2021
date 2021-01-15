@@ -69,6 +69,8 @@ class _TrendingPlacePageState extends State<TrendingPlacePage> {
     );
   }
 
+  // TODO : Complete trending place screen
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

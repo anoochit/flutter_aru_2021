@@ -6,13 +6,20 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0, left: 16, right: 16),
+      padding: const EdgeInsets.only(
+        bottom: 16.0,
+        left: 16,
+        right: 16,
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.baseline,
         children: [
           Text(
             'Explore Cities',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Spacer(),
           CircleAvatar(
