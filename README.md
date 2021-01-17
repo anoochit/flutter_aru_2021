@@ -5,6 +5,4 @@ Flutter Workshop 2021
 
  * [Git repository](http://bit.ly/flutter_aru_2021_code)
  * [Presentation](http://bit.ly/flutter_aru_2021_slide)
- * [Youtube](http://bit.ly/flutter_aru_2021_video) 
- * [Google Meet](https://meet.google.com/erx-pdof-pgc)
-
+ * [Youtube](http://bit.ly/flutter_aru_2021_video)  
