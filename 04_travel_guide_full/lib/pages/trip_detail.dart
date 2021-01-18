@@ -80,6 +80,31 @@ class _TripDetailPageState extends State<TripDetailPage> {
     );
   }
 
+  Widget tripSaveButton() {
+    return Padding(
+      padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+      child: SizedBox(
+        width: double.infinity, // match_parent
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.black, // background
+            onPrimary: Colors.white, // foreground
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'Save Trip',
+              style: TextStyle(fontSize: 20.0),
+            ),
+          ),
+          onPressed: () {
+            // do somthings
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,6 +123,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                 tripLocationTitle(),
                 tripTitle(),
                 tripBody(),
+                tripSaveButton(),
               ],
             ),
           ),
