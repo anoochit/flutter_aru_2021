@@ -111,21 +111,27 @@ class _TripDetailPageState extends State<TripDetailPage> {
       body: SafeArea(
         top: true,
         minimum: EdgeInsets.only(top: 42),
-        child: SingleChildScrollView(
-          child: Container(
-            child: Flex(
-              direction: Axis.vertical,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomAppBarWithBackButton(
-                  title: 'Trip Details',
+        child: Container(
+          child: Flex(
+            direction: Axis.vertical,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomAppBarWithBackButton(
+                title: 'Trip Details',
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      tripLocationTitle(),
+                      tripTitle(),
+                      tripBody(),
+                      tripSaveButton(),
+                    ],
+                  ),
                 ),
-                tripLocationTitle(),
-                tripTitle(),
-                tripBody(),
-                tripSaveButton(),
-              ],
-            ),
+              )
+            ],
           ),
         ),
       ),
