@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_guide_ui/model/citiy.dart';
 import 'package:travel_guide_ui/widget/custom_appbar_backbutton.dart';
@@ -11,7 +13,8 @@ class PopularCityPage extends StatefulWidget {
 }
 
 class _PopularCityPageState extends State<PopularCityPage> {
-  Widget popularCityItem(BuildContext context, List<City> item, int index) {
+  Widget popularCityItem(
+      BuildContext context, List<QueryDocumentSnapshot> item, int index) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -19,22 +22,30 @@ class _PopularCityPageState extends State<PopularCityPage> {
           height: 245,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(6),
-            child: Image.asset(
-              item[index].image,
+            // child: Image.asset(
+            //   item[index]['image'],
+            //   fit: BoxFit.cover,
+            // ),
+            child: CachedNetworkImage(
+              imageUrl: item[index]['image'],
               fit: BoxFit.cover,
+              placeholder: (context, url) => Container(
+                color: Colors.grey,
+              ),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
           ),
         ),
         SizedBox(height: 8),
         Text(
-          item[index].name,
+          item[index]['name'],
           style: TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          item[index].country,
+          item[index]['country'],
           style: TextStyle(fontSize: 12.0),
         ),
       ],
@@ -46,19 +57,43 @@ class _PopularCityPageState extends State<PopularCityPage> {
     double screenHeight = MediaQuery.of(context).size.height;
     double statusBarHeight = 24.0;
     double actionItemHeight = 110.0;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: GridView.builder(
-        gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: (screenWidth / 2) /
-              ((screenHeight - statusBarHeight - (actionItemHeight)) / 2),
-          mainAxisSpacing: 8.0,
-          crossAxisSpacing: 8.0,
-        ),
-        itemCount: 4,
-        itemBuilder: (BuildContext context, int index) {
-          return popularCityItem(context, listCity, index);
+      // child: GridView.builder(
+      //   gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+      //     crossAxisCount: 2,
+      //     childAspectRatio: (screenWidth / 2) /
+      //         ((screenHeight - statusBarHeight - (actionItemHeight)) / 2),
+      //     mainAxisSpacing: 8.0,
+      //     crossAxisSpacing: 8.0,
+      //   ),
+      //   itemCount: 4,
+      //   itemBuilder: (BuildContext context, int index) {
+      //     return popularCityItem(context, listCity, index);
+      //   },
+      // ),
+      child: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('cities').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasData) {
+            var doc = snapshot.data.docs;
+            return GridView.builder(
+              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: (screenWidth / 2) /
+                    ((screenHeight - statusBarHeight - (actionItemHeight)) / 2),
+                mainAxisSpacing: 8.0,
+                crossAxisSpacing: 8.0,
+              ),
+              itemCount: 4,
+              itemBuilder: (BuildContext context, int index) {
+                return popularCityItem(context, doc, index);
+              },
+            );
+          }
+
+          return Text('Loading...');
         },
       ),
     );
