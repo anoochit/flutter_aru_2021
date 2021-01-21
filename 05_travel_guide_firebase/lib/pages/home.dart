@@ -1,15 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_guide_ui/model/citiy.dart';
-import 'package:travel_guide_ui/model/mockdata.dart';
-import 'package:travel_guide_ui/model/place.dart';
-import 'package:travel_guide_ui/model/user.dart';
 import 'package:travel_guide_ui/pages/popular_city.dart';
 import 'package:travel_guide_ui/pages/trending_place.dart';
 import 'package:travel_guide_ui/widget/custom_appbar.dart';
 import 'package:travel_guide_ui/widget/custom_searchbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:developer';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
