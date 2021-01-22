@@ -1,7 +1,11 @@
+import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:travel_guide_ui/pages/popular_city.dart';
 import 'package:travel_guide_ui/pages/trending_place.dart';
+import 'package:travel_guide_ui/services/googlesignin.dart';
 import 'package:travel_guide_ui/widget/custom_appbar.dart';
 import 'package:travel_guide_ui/widget/custom_searchbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,6 +18,33 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+
+    // listen google sign in state change
+    googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
+      setState(() {
+        currentUser = account;
+      });
+    });
+    googleSignIn.signInSilently().then((account) {
+      if (currentUser != null) {
+        log('Current user -> ' + currentUser.email);
+        // google signin state change then get creaential to sign in in firebase auth
+        account.authentication.then((googleAuth) {
+          // get credential
+          final GoogleAuthCredential credential = GoogleAuthProvider.credential(
+            accessToken: googleAuth.accessToken,
+            idToken: googleAuth.idToken,
+          );
+          // firebase auth
+          FirebaseAuth.instance.signInWithCredential(credential);
+        });
+      }
+    });
+  }
+
   Widget popularCityItem(
       BuildContext context, List<QueryDocumentSnapshot> item, int index) {
     return Padding(
@@ -304,15 +335,19 @@ class _HomePageState extends State<HomePage> {
                           left: (index == 0) ? 16 : 0,
                           right: 8.0,
                         ),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.grey,
-                          radius: 30,
-                          //child: Image.network(doc[index]['image']),
-                          child: CachedNetworkImage(
-                            fit: BoxFit.cover,
-                            imageUrl: doc[index]['image'],
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                        child: Container(
+                          width: 60,
+                          height: 60,
+                          child: ClipOval(
+                            child: CachedNetworkImage(
+                              placeholder: (context, url) => Container(
+                                color: Colors.grey,
+                              ),
+                              fit: BoxFit.cover,
+                              imageUrl: doc[index]['image'],
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
                           ),
                         ),
                       );

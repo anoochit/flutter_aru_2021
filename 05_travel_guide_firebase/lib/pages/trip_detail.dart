@@ -122,6 +122,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       tripLocationTitle(),
                       tripTitle(),

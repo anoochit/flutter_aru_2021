@@ -86,7 +86,7 @@ class _PopularCityPageState extends State<PopularCityPage> {
                 mainAxisSpacing: 8.0,
                 crossAxisSpacing: 8.0,
               ),
-              itemCount: 4,
+              itemCount: doc.length,
               itemBuilder: (BuildContext context, int index) {
                 return popularCityItem(context, doc, index);
               },
