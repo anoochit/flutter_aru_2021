@@ -115,7 +115,7 @@ class _TrendingPlacePageState extends State<TrendingPlacePage> {
     );
   }
 
-  Widget trendingPlaceList(List<Place> listPlace) {
+  Widget trendingPlaceList() {
     return StreamBuilder(
       stream: FirebaseFirestore.instance.collection('trips').snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -158,7 +158,7 @@ class _TrendingPlacePageState extends State<TrendingPlacePage> {
             CustomSearchBar(),
             trendingPlaceTitle(),
             Expanded(
-              child: trendingPlaceList(listPlace),
+              child: trendingPlaceList(),
             ),
           ],
         ),
