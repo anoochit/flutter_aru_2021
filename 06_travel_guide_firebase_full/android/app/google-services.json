@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "81533662878",
+    "project_id": "travel-guide-a3b71",
+    "storage_bucket": "travel-guide-a3b71.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81533662878:android:b129bcb427229291fe6d8f",
+        "android_client_info": {
+          "package_name": "net.redlinesoft.travel_guide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81533662878-8mi6q70hft33sl9nrdkludje0ms7r123.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.redlinesoft.travel_guide",
+            "certificate_hash": "0946f111963a5b2f3b111e108a6434c289e6ca24"
+          }
+        },
+        {
+          "client_id": "81533662878-c650ug0sagie88bhlkrppqeocl6a3gco.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRlL19tFr6kcaFdDR_zyNKgh1BQbheQJw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81533662878-c650ug0sagie88bhlkrppqeocl6a3gco.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
