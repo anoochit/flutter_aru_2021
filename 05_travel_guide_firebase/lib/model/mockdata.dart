@@ -159,6 +159,7 @@ addMockupData() {
         .doc('trip' + i.toString())
         .set({
       "name": element['name'],
+      "user": element['user'],
       "city": element['city'],
       "image": element['image'],
       "body": element['body']

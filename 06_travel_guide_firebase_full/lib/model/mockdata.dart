@@ -19,9 +19,9 @@ addMockupData() {
 
   var cityList = [
     {"name": "NewYork", "country": "United State", "image": "https://raw.githubusercontent.com/anoochit/flutter_aru_2021/master/04_travel_guide_full/assets/images/city01.png"},
-    {"name": "Sydney", "country": "Australia", "image": "https://raw.githubusercontent.com/anoochit/flutter_aru_2021/master/04_travel_guide_full/assets/images/city01.png"},
-    {"name": "Beijing", "country": "China", "image": "https://raw.githubusercontent.com/anoochit/flutter_aru_2021/master/04_travel_guide_full/assets/images/city01.png"},
-    {"name": "Chiang Mai", "country": "Thailand", "image": "https://raw.githubusercontent.com/anoochit/flutter_aru_2021/master/04_travel_guide_full/assets/images/city01.png"},
+    {"name": "Sydney", "country": "Australia", "image": "https://raw.githubusercontent.com/anoochit/flutter_aru_2021/master/04_travel_guide_full/assets/images/city02.png"},
+    {"name": "Beijing", "country": "China", "image": "https://raw.githubusercontent.com/anoochit/flutter_aru_2021/master/04_travel_guide_full/assets/images/city03.png"},
+    {"name": "Chiang Mai", "country": "Thailand", "image": "https://raw.githubusercontent.com/anoochit/flutter_aru_2021/master/04_travel_guide_full/assets/images/city04.png"},
   ];
 
   var tripList = [
@@ -98,7 +98,15 @@ addMockupData() {
   log('firebase -> add places');
   int i = 0;
   tripList.forEach((element) {
-    FirebaseFirestore.instance.collection('trips').doc('trip' + i.toString()).set({"name": element['name'], "city": element['city'], "image": element['image'], "body": element['body']});
+    FirebaseFirestore.instance.collection('trips').doc('trip' + i.toString()).set(
+      {
+        "name": element['name'],
+        "user": element['user'],
+        "city": element['city'],
+        "image": element['image'],
+        "body": element['body'],
+      },
+    );
     i++;
   });
 }

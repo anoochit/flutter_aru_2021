@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:travel_guide_ui/model/mockdata.dart';
 import 'package:travel_guide_ui/pages/popular_city.dart';
 import 'package:travel_guide_ui/pages/trending_place.dart';
 import 'package:travel_guide_ui/services/googlesignin.dart';
@@ -27,8 +28,6 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         currentUser = account;
       });
-    });
-    googleSignIn.signInSilently().then((account) {
       if (currentUser != null) {
         log('Current user -> ' + currentUser.email);
         // google signin state change then get creaential to sign in in firebase auth
@@ -39,14 +38,16 @@ class _HomePageState extends State<HomePage> {
             idToken: googleAuth.idToken,
           );
           // firebase auth
-          FirebaseAuth.instance.signInWithCredential(credential);
+          FirebaseAuth.instance.signInWithCredential(credential).then((userCredential) {
+            firebaseUser = userCredential;
+          });
         });
       }
     });
+    googleSignIn.signInSilently();
   }
 
-  Widget popularCityItem(
-      BuildContext context, List<QueryDocumentSnapshot> item, int index) {
+  Widget popularCityItem(BuildContext context, List<QueryDocumentSnapshot> item, int index) {
     return Padding(
       padding: EdgeInsets.only(
         left: (index == 0) ? 16 : 0,
@@ -113,8 +114,7 @@ class _HomePageState extends State<HomePage> {
                 fontSize: 16.0,
               ),
             ),
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (BuildContext context) {
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
               return PopularCityPage();
             })),
           ),
@@ -142,8 +142,7 @@ class _HomePageState extends State<HomePage> {
           // ),
           child: StreamBuilder(
             stream: FirebaseFirestore.instance.collection('cities').snapshots(),
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasData) {
                 var doc = snapshot.data.docs;
                 return ListView.builder(
@@ -200,8 +199,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget trendingPlaceItem(
-      BuildContext context, List<QueryDocumentSnapshot> listPlace, int index) {
+  Widget trendingPlaceItem(BuildContext context, List<QueryDocumentSnapshot> listPlace, int index) {
     return Container(
       width: 160,
       height: 77,
@@ -243,10 +241,8 @@ class _HomePageState extends State<HomePage> {
             //   },
             // ),
             child: StreamBuilder(
-              stream:
-                  FirebaseFirestore.instance.collection('trips').snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
+              stream: FirebaseFirestore.instance.collection('trips').snapshots(),
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasData) {
                   var doc = snapshot.data.docs;
                   return ListView.builder(
@@ -320,10 +316,8 @@ class _HomePageState extends State<HomePage> {
             //   },
             // ),
             child: StreamBuilder(
-              stream:
-                  FirebaseFirestore.instance.collection('users').snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
+              stream: FirebaseFirestore.instance.collection('users').snapshots(),
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasData) {
                   var doc = snapshot.data.docs;
                   return ListView.builder(
@@ -345,8 +339,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                               fit: BoxFit.cover,
                               imageUrl: doc[index]['image'],
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                              errorWidget: (context, url, error) => Icon(Icons.error),
                             ),
                           ),
                         ),
@@ -370,7 +363,7 @@ class _HomePageState extends State<HomePage> {
     // and this link - https://firebase.flutter.dev/docs/overview
 
     // TODO 02 : add mockup data
-    // addMockupData();
+    //addMockupData();
 
     return Scaffold(
       body: SafeArea(

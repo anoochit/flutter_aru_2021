@@ -18,23 +18,19 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   saveUser(UserCredential userCredential) {
+    firebaseUser = userCredential;
     // save new user to firebase
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(userCredential.user.uid)
-        .get()
-        .then((value) {
+    FirebaseFirestore.instance.collection('users').doc(userCredential.user.uid).get().then((value) {
       if (value.exists) {
         log('Already has user in firestore collection');
       } else {
         log('No user data in firestore collection');
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(userCredential.user.uid)
-            .set({
-          'name': userCredential.user.displayName,
-          'image': userCredential.user.photoURL
-        });
+        FirebaseFirestore.instance.collection('users').doc(userCredential.user.uid).set(
+          {
+            'name': userCredential.user.displayName,
+            'image': userCredential.user.photoURL,
+          },
+        );
       }
     });
   }
@@ -63,8 +59,7 @@ class _SignInPageState extends State<SignInPage> {
                   handleSignIn().then((userCredential) {
                     // save user to firebase database
                     saveUser(userCredential);
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (BuildContext context) {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) {
                       return HomePage();
                     }));
                   });

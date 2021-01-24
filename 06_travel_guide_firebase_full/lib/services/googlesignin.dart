@@ -4,14 +4,14 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 GoogleSignIn googleSignIn = GoogleSignIn();
 GoogleSignInAccount currentUser;
+UserCredential firebaseUser;
 
 Future<UserCredential> handleSignIn() async {
   // google signin
   currentUser = await GoogleSignIn().signIn();
 
   // Obtain the auth details from the request
-  final GoogleSignInAuthentication googleAuth =
-      await currentUser.authentication;
+  final GoogleSignInAuthentication googleAuth = await currentUser.authentication;
 
   // Create a new credential
   final GoogleAuthCredential credential = GoogleAuthProvider.credential(

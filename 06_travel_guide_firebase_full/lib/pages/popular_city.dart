@@ -13,8 +13,7 @@ class PopularCityPage extends StatefulWidget {
 }
 
 class _PopularCityPageState extends State<PopularCityPage> {
-  Widget popularCityItem(
-      BuildContext context, List<QueryDocumentSnapshot> item, int index) {
+  Widget popularCityItem(BuildContext context, List<QueryDocumentSnapshot> item, int index) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -52,7 +51,7 @@ class _PopularCityPageState extends State<PopularCityPage> {
     );
   }
 
-  Widget popularCityGridView(List<City> listCity) {
+  Widget popularCityGridView(List<QueryDocumentSnapshot> doc) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     double statusBarHeight = 24.0;
@@ -60,50 +59,26 @@ class _PopularCityPageState extends State<PopularCityPage> {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      // child: GridView.builder(
-      //   gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-      //     crossAxisCount: 2,
-      //     childAspectRatio: (screenWidth / 2) /
-      //         ((screenHeight - statusBarHeight - (actionItemHeight)) / 2),
-      //     mainAxisSpacing: 8.0,
-      //     crossAxisSpacing: 8.0,
-      //   ),
-      //   itemCount: 4,
-      //   itemBuilder: (BuildContext context, int index) {
-      //     return popularCityItem(context, listCity, index);
-      //   },
-      // ),
-      child: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('cities').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasData) {
-            var doc = snapshot.data.docs;
-            return GridView.builder(
-              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: (screenWidth / 2) /
-                    ((screenHeight - statusBarHeight - (actionItemHeight)) / 2),
-                mainAxisSpacing: 8.0,
-                crossAxisSpacing: 8.0,
-              ),
-              itemCount: doc.length,
-              itemBuilder: (BuildContext context, int index) {
-                return popularCityItem(context, doc, index);
-              },
-            );
-          }
-
-          return Text('Loading...');
+      child: GridView.builder(
+        gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: (screenWidth / 2) / ((screenHeight - statusBarHeight - (actionItemHeight)) / 2),
+          mainAxisSpacing: 8.0,
+          crossAxisSpacing: 8.0,
+        ),
+        itemCount: doc.length,
+        itemBuilder: (BuildContext context, int index) {
+          return popularCityItem(context, doc, index);
         },
       ),
     );
   }
 
-  Widget popularCityTitle() {
+  Widget popularCityTitle(int total) {
     return Padding(
       padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 28.0),
       child: Text(
-        'Result ${listCity.length} cities found',
+        'Result $total cities found',
         style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
       ),
     );
@@ -114,18 +89,36 @@ class _PopularCityPageState extends State<PopularCityPage> {
     return Scaffold(
       body: SafeArea(
         top: true,
-        minimum: EdgeInsets.only(top: 42.0),
-        child: Flex(
-          direction: Axis.vertical,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomAppBarWithBackButton(title: 'Popular Cities'),
-            CustomSearchBar(),
-            popularCityTitle(),
-            Expanded(
-              child: popularCityGridView(listCity),
-            ),
-          ],
+        minimum: EdgeInsets.only(top: 42),
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            //direction: Axis.vertical,
+            children: [
+              CustomAppBarWithBackButton(title: 'Popular City'),
+              CustomSearchBar(),
+              StreamBuilder(
+                stream: FirebaseFirestore.instance.collection('cities').snapshots(),
+                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasData) {
+                    var doc = snapshot.data.docs;
+                    return Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          popularCityTitle(doc.length),
+                          Expanded(
+                            child: popularCityGridView(doc),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                  return Container();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
