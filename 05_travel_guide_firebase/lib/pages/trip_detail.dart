@@ -105,6 +105,31 @@ class _TripDetailPageState extends State<TripDetailPage> {
     );
   }
 
+  tripImageList() {
+    return Container(
+      height: 120,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: trip.image.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: (index == 0)
+                ? EdgeInsets.only(left: 16, right: 4, bottom: 16)
+                : EdgeInsets.only(left: 4, right: 4, bottom: 16),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(6.0),
+              child: Image.asset(
+                trip.image[index],
+                width: 220,
+                fit: BoxFit.cover,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,6 +150,7 @@ class _TripDetailPageState extends State<TripDetailPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       tripLocationTitle(),
+                      tripImageList(),
                       tripTitle(),
                       tripBody(),
                       tripSaveButton(),
